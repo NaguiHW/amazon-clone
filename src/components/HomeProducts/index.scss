@@ -1,0 +1,8 @@
+.home-products {
+  display: grid;
+  z-index: 1;
+  margin: 0 25px;
+  position: relative;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}

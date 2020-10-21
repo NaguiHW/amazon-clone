@@ -4,7 +4,8 @@
     height: 600px;
     object-fit: cover;
     z-index: -1;
-    margin-bottom: -150px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    margin-bottom: -350px;
+    -webkit-mask-image: linear-gradient(to top, transparent 10%, black 60%);
+    mask-image: linear-gradient(to top, transparent 10%, black 60%);
   }
 }
