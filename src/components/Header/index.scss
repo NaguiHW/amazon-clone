@@ -32,4 +32,35 @@
       background-color: #cd9042;
     }
   }
+
+  .header-nav {
+    display: flex;
+    justify-content: space-evenly;
+
+    .header-nav-option {
+      display: flex;
+      flex-direction: column;
+      margin: 0 10px;
+      color: white;
+
+      .header-nav-option-line-one {
+        font-size: 10px;
+      }
+
+      .header-nav-option-line-two {
+        font-size: 13px;
+        font-weight: 800;
+      }
+    }
+
+    .header-nav-option-cart {
+      display: flex;
+      align-items: center;
+      color: white;
+
+      .header-cart-count {
+        margin: 0%10px;
+      }
+    }
+  }
 }

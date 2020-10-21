@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import './index.scss';
 
 const Header = () => (
@@ -11,7 +12,7 @@ const Header = () => (
     </div>
     <nav className="header-nav">
       <div className="header-nav-option">
-        <span className="header-nav-option-line-one">Hello Guest</span>
+        <span className="header-nav-option-line-one">Hello, Guest</span>
         <span className="header-nav-option-line-two">Sign In</span>
       </div>
       <div className="header-nav-option">
@@ -21,6 +22,10 @@ const Header = () => (
       <div className="header-nav-option">
         <span className="header-nav-option-line-one">Your</span>
         <span className="header-nav-option-line-two">Prime</span>
+      </div>
+      <div className="header-nav-option-cart">
+        <ShoppingCartIcon className="header-nav-option-cart-icon" />
+        <span className="header-nav-option-line-two header-cart-count">0</span>
       </div>
     </nav>
   </div>
