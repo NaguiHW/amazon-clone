@@ -9,11 +9,11 @@ const Product = () => (
         <small>$</small>
         <strong>11.99</strong>
       </p>
-    </div>
-    <div className="product-rating">
-      <span role="img" aria-label="star">⭐</span>
-      <span role="img" aria-label="star">⭐</span>
-      <span role="img" aria-label="star">⭐</span>
+      <div className="product-rating">
+        <span role="img" aria-label="star">⭐</span>
+        <span role="img" aria-label="star">⭐</span>
+        <span role="img" aria-label="star">⭐</span>
+      </div>
     </div>
     <img src="https://images-na.ssl-images-amazon.com/images/I/61jisDA2N5L._AC_SX679_.jpg" alt="product" />
     <button type="button">Add to cart</button>

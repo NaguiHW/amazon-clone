@@ -25,15 +25,19 @@
     height: 100px;
     margin-bottom: 15px;
 
+    p {
+      margin-top: 0;
+    }
+
     .product-price {
-      margin-top: 5px;
+      margin: 5px 0 0;
       display: flex;
       align-items: center;
     }
-  }
 
-  .product-rating {
-    align-self: flex-start;
+    .product-rating {
+      align-self: flex-start;
+    }
   }
 }
 
