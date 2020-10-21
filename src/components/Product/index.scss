@@ -36,3 +36,13 @@
     align-self: flex-start;
   }
 }
+
+.product:last-child {
+  display: none;
+}
+
+@media only screen and (max-width: 1236px) {
+  .product:last-child {
+    display: flex;
+  }
+}
