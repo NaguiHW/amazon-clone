@@ -1,4 +1,5 @@
 import React from 'react';
+import Subtotal from '../../components/Subtotal';
 import './index.scss';
 
 const Cart = () => (
@@ -10,7 +11,7 @@ const Cart = () => (
       </div>
     </div>
     <div className="right-side">
-      <h2>Subtotal</h2>
+      <Subtotal />
     </div>
   </div>
 );
