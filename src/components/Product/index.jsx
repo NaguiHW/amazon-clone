@@ -7,7 +7,7 @@ const Product = ({
   id, title, image, price, rating,
 }) => {
   const [{ cart }, dispatch] = useStateValue();
-
+  
   const addToCart = () => {
     dispatch({
       type: 'ADD_TO_CART',
