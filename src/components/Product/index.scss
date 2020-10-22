@@ -24,6 +24,7 @@
   .product-info {
     height: 100px;
     margin-bottom: 15px;
+    align-self: flex-start;
 
     p {
       margin-top: 0;
@@ -33,10 +34,6 @@
       margin: 5px 0 0;
       display: flex;
       align-items: center;
-    }
-
-    .product-rating {
-      align-self: flex-start;
     }
   }
 }
