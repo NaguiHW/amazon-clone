@@ -39,6 +39,10 @@
     justify-content: space-evenly;
     align-items: center;
 
+    a {
+      text-decoration: none;
+    }
+
     .header-nav-option {
       display: flex;
       flex-direction: column;

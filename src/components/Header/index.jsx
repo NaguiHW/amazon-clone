@@ -31,7 +31,11 @@ const Header = () => {
               user
                 ? (
                   <>
-                    <span className="header-nav-option-line-one">Hello</span>
+                    <span className="header-nav-option-line-one">
+                      Hello,
+                      {' '}
+                      {user.email.split('@', 1)}
+                    </span>
                     <span className="header-nav-option-line-two" onClick={signOut}>Sign Out</span>
                   </>
                 )
