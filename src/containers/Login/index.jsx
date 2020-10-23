@@ -1,8 +1,11 @@
-import { Link } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { auth } from '../../firebase';
 import './index.scss';
 
 const Login = () => {
+  const history = useHistory();
+
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -17,10 +20,26 @@ const Login = () => {
 
   const signIn = e => {
     e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(state.email, state.password)
+      .then(auth => {
+        if (auth) {
+          history.push('/');
+        }
+      })
+      .catch(error => alert(error.message));
   };
 
   const register = e => {
     e.preventDefault();
+    auth
+      .createUserWithEmailAndPassword(state.email, state.password)
+      .then(auth => {
+        if (auth) {
+          history.push('/');
+        }
+      })
+      .catch(error => alert(error.message));
   };
 
   return (
