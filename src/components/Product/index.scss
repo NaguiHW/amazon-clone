@@ -6,14 +6,14 @@
   padding: 20px;
   background-color: white;
 
-  img {
+  > img {
     max-height: 200px;
     width: 100%;
     object-fit: contain;
     margin-bottom: 15px;
   }
 
-  button {
+  > button {
     background-color: #f0c14b;
     border: 1px solid;
     margin-top: 10px;
