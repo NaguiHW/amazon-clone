@@ -21,8 +21,8 @@ const Login = () => (
         <button type="submit" className="login-button">Sign In</button>
       </form>
       <p>By continuing, you agree to Amazon's Fake Clone Conditions of Use and Privacy Notice.</p>
+      <button type="button" className="register-button">Create your Amazon Account</button>
     </div>
-    <button type="button" className="register-button">Create your Amazon Account</button>
   </div>
 );
 
