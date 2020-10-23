@@ -6,6 +6,7 @@ import { useStateValue } from '../../StateProvider';
 import Cart from '../Cart';
 import Home from '../Home';
 import Login from '../Login';
+import Payment from '../Payment';
 
 const App = () => {
   const [{}, dispath] = useStateValue();
@@ -32,6 +33,10 @@ const App = () => {
         <Switch>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/payment">
+            <Header />
+            <Payment />
           </Route>
           <Route path="/cart">
             <Header />
