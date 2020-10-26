@@ -4,7 +4,7 @@ import './index.scss';
 import { useStateValue } from '../../StateProvider';
 
 const Item = ({
-  id, image, title, price, rating,
+  id, image, title, price, rating, hideButton,
 }) => {
   const [{ cart }, dispatch] = useStateValue();
 
@@ -29,7 +29,11 @@ const Item = ({
             <span role="img" aria-label="star" key={i}>⭐</span>
           ))}
         </div>
-        <button type="button" onClick={removeFromCart}>Remove from cart</button>
+        {
+          !hideButton && (
+            <button type="button" onClick={removeFromCart}>Remove from cart</button>
+          )
+        }
       </div>
     </div>
   );
@@ -41,6 +45,7 @@ Item.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
+  hideButton: PropTypes.bool.isRequired,
 };
 
 export default Item;

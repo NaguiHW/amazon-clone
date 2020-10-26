@@ -1,6 +1,6 @@
 import React from 'react';
 import CurrencyFormat from 'react-currency-format';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getCartTotal } from '../../reducer';
 import { useStateValue } from '../../StateProvider';
 import './index.scss';
@@ -35,7 +35,7 @@ const Subtotal = () => {
         value={getCartTotal(cart)}
         displayType="text"
         prefix="$"
-        thousandSeparator={true}
+        thousandSeparator
       />
       {
         user

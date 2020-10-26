@@ -4,6 +4,8 @@ import CurrencyFormat from 'react-currency-format';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import CartItems from '../../components/CartItems';
+import Item from '../../components/Item';
+import { db } from '../../firebase';
 import { getCartTotal } from '../../reducer';
 import { useStateValue } from '../../StateProvider';
 import './index.scss';
@@ -39,6 +41,8 @@ const Payment = () => {
     getClientSecret();
   }, [cart]);
 
+  console.log(state.clientSecret);
+
   const handleSubmit = async e => {
     e.preventDefault();
     setState({
@@ -50,11 +54,26 @@ const Payment = () => {
         card: elements.getElement(CardElement),
       },
     }).then(({ paymentIntent }) => {
+      db
+        .collection('users')
+        .doc(user?.uid)
+        .collection('orders')
+        .doc(paymentIntent.id)
+        .set({
+          cart,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created,
+        });
+
       setState({
         ...state,
         succeeded: true,
         error: null,
         processing: false,
+      });
+
+      dispatch({
+        type: 'EMPTY_CART',
       });
 
       history.replace('/orders');
@@ -92,7 +111,23 @@ const Payment = () => {
         <div className="payment-title">
           <h3>Review items and delivery</h3>
         </div>
-        <CartItems />
+        <div className="payment-items">
+          {
+            cart?.map(({
+              id, image, title, price, rating,
+            }, i) => (
+              <Item
+                id={id}
+                image={image}
+                title={title}
+                price={price}
+                rating={rating}
+                key={i}
+                hideButton
+              />
+            ))
+          }
+        </div>
       </div>
       <div className="payment-section">
         <div className="payment-title">
