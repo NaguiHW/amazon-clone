@@ -1,0 +1,65 @@
+.your-products {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 25px;
+
+  > h2 {
+    margin: 10px;
+    text-align: center;
+  }
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: 0 auto;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin: 5px 0;
+
+      span {
+        margin-bottom: 3px;
+      }
+    }
+
+    #price {
+      width: 100px;
+    }
+
+    button {
+      background-color: #f0c14b;
+      border: 1px solid;
+      margin: 10px 0;
+      border-color: #a88734 #9c7e31 #846a29;
+      color: #111;
+      width: 250px;
+      height: 24px;
+      align-self: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #cfa53b;
+      }
+    }
+  }
+
+  > button {
+    background-color: red;
+    border: 1px solid;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #fff;
+    width: 250px;
+    height: 24px;
+    align-self: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(206, 4, 4);
+    }
+  }
+}
