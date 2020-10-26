@@ -4,6 +4,7 @@ import CurrencyFormat from 'react-currency-format';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import CartItems from '../../components/CartItems';
+import { db } from '../../firebase';
 import { getCartTotal } from '../../reducer';
 import { useStateValue } from '../../StateProvider';
 import './index.scss';
@@ -39,6 +40,8 @@ const Payment = () => {
     getClientSecret();
   }, [cart]);
 
+  console.log(state.clientSecret);
+
   const handleSubmit = async e => {
     e.preventDefault();
     setState({
@@ -50,11 +53,26 @@ const Payment = () => {
         card: elements.getElement(CardElement),
       },
     }).then(({ paymentIntent }) => {
+      db
+        .collection('users')
+        .doc(user?.uid)
+        .collection('orders')
+        .doc(paymentIntent.id)
+        .set({
+          cart,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created,
+        });
+
       setState({
         ...state,
         succeeded: true,
         error: null,
         processing: false,
+      });
+
+      dispatch({
+        type: 'EMPTY_CART',
       });
 
       history.replace('/orders');
