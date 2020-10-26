@@ -4,6 +4,7 @@ import CurrencyFormat from 'react-currency-format';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import CartItems from '../../components/CartItems';
+import Item from '../../components/Item';
 import { db } from '../../firebase';
 import { getCartTotal } from '../../reducer';
 import { useStateValue } from '../../StateProvider';
@@ -110,7 +111,23 @@ const Payment = () => {
         <div className="payment-title">
           <h3>Review items and delivery</h3>
         </div>
-        <CartItems />
+        <div className="payment-items">
+          {
+            cart?.map(({
+              id, image, title, price, rating,
+            }, i) => (
+              <Item
+                id={id}
+                image={image}
+                title={title}
+                price={price}
+                rating={rating}
+                key={i}
+                hideButton
+              />
+            ))
+          }
+        </div>
       </div>
       <div className="payment-section">
         <div className="payment-title">
