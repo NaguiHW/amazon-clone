@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import CurrencyFormat from 'react-currency-format';
 import Item from '../Item';
+import './index.scss';
 
 const Order = ({ order }) => (
   <div className="order">
@@ -21,9 +23,24 @@ const Order = ({ order }) => (
           price={price}
           rating={rating}
           key={i}
+          hideButton
         />
       ))
     }
+    <CurrencyFormat
+      renderText={value => (
+        <h3 className="order-total">
+          Order Total:
+          {' '}
+          {value}
+        </h3>
+      )}
+      decimalScale={2}
+      value={order.data.amount / 100}
+      displayType="text"
+      prefix="$"
+      thousandSeparator
+    />
   </div>
 );
 

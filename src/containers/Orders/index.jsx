@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Order from '../../components/Order';
 import { db } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
+import './index.scss';
 
 const Orders = () => {
   const [{ user }] = useStateValue();
