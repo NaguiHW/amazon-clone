@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
 import './index.scss';
 
 const YourProducts = () => {
@@ -59,10 +60,14 @@ const YourProducts = () => {
         <div className="uploaded-images">
           {
             state.imagesRoutes.map((image, i) => (
-              <div className="image-container" key={i}>
-                <img src={image} alt={`upload ${i}`} key={i} className="image" />
-                <span>X</span>
-              </div>
+              <>
+                <div className="image-container" key={i}>
+                  <img src={image} alt={`upload ${i}`} key={i} className="image" />
+                </div>
+                <div className="icon-container">
+                  <DeleteIcon />
+                </div>
+              </>
             ))
           }
         </div>
