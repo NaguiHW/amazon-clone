@@ -5,9 +5,8 @@ const YourProducts = () => {
   const [state, setState] = useState({
     name: '',
     description: '',
-    image: '',
     price: '',
-    imagesRoute: [],
+    imagesRoutes: ['https://i.imgur.com/tbdTkdl.png', 'https://i.imgur.com/ZGYDb62.png'],
   });
 
   const handleChange = e => {
@@ -16,6 +15,32 @@ const YourProducts = () => {
       [e.target.name]: e.target.value,
     });
     console.log(state);
+  };
+
+  const uploadImage = async e => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Client-ID 8adc96648c0a8f2');
+
+      const formdata = new FormData();
+      formdata.append('image', e.target.files[0]);
+
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+      };
+
+      const response = await fetch('https://api.imgur.com/3/image', requestOptions);
+      const result = await response.json();
+      setState({
+        ...state,
+        imagesRoutes: [...state.imagesRoutes, result.data.link],
+      });
+      console.log(result.data.link);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -30,9 +55,20 @@ const YourProducts = () => {
           <span>Description:</span>
           <textarea name="description" id="description" cols="30" rows="10" onChange={handleChange} />
         </label>
+        <p>You can upload up to 5 images</p>
+        <div className="uploaded-images">
+          {
+            state.imagesRoutes.map((image, i) => (
+              <div className="image-container" key={i}>
+                <img src={image} alt={`upload ${i}`} key={i} className="image" />
+                <span>X</span>
+              </div>
+            ))
+          }
+        </div>
         <label htmlFor="image">
           <span>Upload Images: </span>
-          <input type="file" id="image" name="image" onChange={handleChange} />
+          <input type="file" id="image" name="image" onChange={uploadImage} />
         </label>
         <label htmlFor="price">
           <span>Item price: </span>
