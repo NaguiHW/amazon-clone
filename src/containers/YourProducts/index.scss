@@ -19,6 +19,7 @@
 
     .uploaded-images {
       display: flex;
+      margin-top: 15px;
 
       .image-container {
         display: flex;
@@ -29,6 +30,7 @@
         .image {
           width: 100%;
           object-fit: cover;
+          border-radius: 5px;
         }
       }
 
@@ -40,17 +42,17 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        margin-left: -15px;
+        margin-top: -5px;
+        margin-left: -20px;
         cursor: pointer;
+        border: none;
+        align-self: flex-start;
+        color: white;
+        font-weight: bold;
 
         &:hover {
           background-color: rgb(196, 0, 0);
         }
-      }
-
-      svg {
-        color: white;
-        font-size: 18px;
       }
     }
 

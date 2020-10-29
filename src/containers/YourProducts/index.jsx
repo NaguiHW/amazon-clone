@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './index.scss';
@@ -7,7 +8,10 @@ const YourProducts = () => {
     name: '',
     description: '',
     price: '',
-    imagesRoutes: ['https://i.imgur.com/tbdTkdl.png', 'https://i.imgur.com/ZGYDb62.png'],
+    imagesRoutes: [{
+      link: 'https://i.imgur.com/Nt95MSI.jpg',
+      deletehash: 'Inmu934BbwsOUto77',
+    }],
   });
 
   const handleChange = e => {
@@ -36,9 +40,39 @@ const YourProducts = () => {
       const result = await response.json();
       setState({
         ...state,
-        imagesRoutes: [...state.imagesRoutes, result.data.link],
+        imagesRoutes: [...state.imagesRoutes, {
+          link: result.data.link,
+          deletehash: result.data.deletehash,
+        }],
       });
-      console.log(result.data.link);
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteImage = async e => {
+    try {
+      console.log(e.target.value);
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Client-ID 8adc96648c0a8f2');
+
+      const formdata = new FormData();
+
+      const requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: formdata,
+      };
+
+      const response = await fetch(`https://api.imgur.com/3/image/${e.target.value}`, requestOptions);
+      const result = await response.json();
+      if (result.status === 200) {
+        setState({
+          ...state,
+          imagesRoutes: state.imagesRoutes.filter(image => image.deletehash !== e.target.value),
+        });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -59,14 +93,12 @@ const YourProducts = () => {
         <p>You can upload up to 5 images</p>
         <div className="uploaded-images">
           {
-            state.imagesRoutes.map((image, i) => (
+            state.imagesRoutes.map(image => (
               <>
-                <div className="image-container" key={i}>
-                  <img src={image} alt={`upload ${i}`} key={i} className="image" />
+                <div className="image-container">
+                  <img src={image.link} alt="uploaded" className="image" />
                 </div>
-                <div className="icon-container">
-                  <DeleteIcon />
-                </div>
+                <button type="button" className="icon-container" onClick={deleteImage} value={image.deletehash}>X</button>
               </>
             ))
           }
