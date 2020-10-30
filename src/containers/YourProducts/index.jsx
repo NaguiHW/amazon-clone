@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
 import './index.scss';
 
 const YourProducts = () => {
@@ -8,10 +7,7 @@ const YourProducts = () => {
     name: '',
     description: '',
     price: '',
-    imagesRoutes: [{
-      link: 'https://i.imgur.com/Nt95MSI.jpg',
-      deletehash: 'Inmu934BbwsOUto77',
-    }],
+    imagesRoutes: [],
   });
 
   const handleChange = e => {
@@ -19,7 +15,6 @@ const YourProducts = () => {
       ...state,
       [e.target.name]: e.target.value,
     });
-    console.log(state);
   };
 
   const uploadImage = async e => {
@@ -45,7 +40,6 @@ const YourProducts = () => {
           deletehash: result.data.deletehash,
         }],
       });
-      console.log(result);
     } catch (err) {
       console.error(err);
     }
@@ -53,7 +47,6 @@ const YourProducts = () => {
 
   const deleteImage = async e => {
     try {
-      console.log(e.target.value);
       const myHeaders = new Headers();
       myHeaders.append('Authorization', 'Client-ID 8adc96648c0a8f2');
 
@@ -78,17 +71,21 @@ const YourProducts = () => {
     }
   };
 
+  const submitForm = () => {
+    console.log(state);
+  };
+
   return (
     <div className="your-products">
       <h2>Add a new product</h2>
-      <form>
+      <form onSubmit={submitForm}>
         <label htmlFor="name">
           <span>Name:</span>
-          <input type="text" name="name" id="name" onChange={handleChange} />
+          <input type="text" name="name" id="name" onChange={handleChange} required />
         </label>
         <label htmlFor="description">
           <span>Description:</span>
-          <textarea name="description" id="description" cols="30" rows="10" onChange={handleChange} />
+          <textarea name="description" id="description" cols="30" rows="10" onChange={handleChange} required />
         </label>
         <p>You can upload up to 5 images</p>
         <div className="uploaded-images">
@@ -105,13 +102,13 @@ const YourProducts = () => {
         </div>
         <label htmlFor="image">
           <span>Upload Images: </span>
-          <input type="file" id="image" name="image" onChange={uploadImage} />
+          <input type="file" id="image" name="image" onChange={uploadImage} disabled={state.imagesRoutes.length === 5 && true} />
         </label>
         <label htmlFor="price">
           <span>Item price: </span>
-          <input type="text" name="price" id="price" placeholder="9.99" onChange={handleChange} />
+          <input type="text" name="price" id="price" placeholder="9.99" onChange={handleChange} required />
         </label>
-        <button type="submit">Add</button>
+        <button type="submit" disabled={state.imagesRoutes.length < 1 && true}>Add</button>
       </form>
       <button type="button">Cancel</button>
       <div className="all-products" />

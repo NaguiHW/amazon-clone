@@ -84,6 +84,10 @@
       &:hover {
         background-color: #cfa53b;
       }
+      &:disabled {
+        background-color: gray;
+        cursor: default;
+      }
     }
   }
 
