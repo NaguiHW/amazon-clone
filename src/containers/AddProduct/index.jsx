@@ -75,7 +75,7 @@ const AddProduct = () => {
 
   const submitForm = async e => {
     e.preventDefault();
-    console.log(REACT_APP_IMGUR_CLIENT_ID);
+
     try {
       const dateNow = firebase.firestore.FieldValue.serverTimestamp();
 
