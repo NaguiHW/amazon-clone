@@ -64,10 +64,21 @@
       span {
         margin-bottom: 3px;
       }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
     }
 
     #price {
       width: 100px;
+      text-align: right;
     }
 
     button {

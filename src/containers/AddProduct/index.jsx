@@ -125,7 +125,7 @@ const AddProduct = () => {
       <form onSubmit={submitForm}>
         <label htmlFor="name">
           <span>Name:</span>
-          <input type="text" name="name" id="name" onChange={handleChange} required />
+          <input type="text" name="name" id="name" onChange={handleChange} required autoComplete="off" />
         </label>
         <label htmlFor="description">
           <span>Description:</span>
@@ -150,7 +150,7 @@ const AddProduct = () => {
         </label>
         <label htmlFor="price">
           <span>Item price: </span>
-          <input type="number" name="price" id="price" placeholder="9.99" onChange={handleChange} min="0" step="0.01" required />
+          <input type="number" name="price" id="price" placeholder="9.99" onChange={handleChange} min="0" step="0.01" required autoComplete="off" />
         </label>
         <button type="submit" disabled={state.images.length < 1 && true}>Add</button>
       </form>
