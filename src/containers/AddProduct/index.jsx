@@ -18,6 +18,7 @@ const AddProduct = () => {
   });
 
   const imagesRoutes = [];
+  const { REACT_APP_IMGUR_CLIENT_ID } = process.env;
 
   const handleChange = e => {
     setState({
@@ -74,12 +75,12 @@ const AddProduct = () => {
 
   const submitForm = async e => {
     e.preventDefault();
-
+    console.log(REACT_APP_IMGUR_CLIENT_ID);
     try {
       const dateNow = firebase.firestore.FieldValue.serverTimestamp();
 
       const myHeaders = new Headers();
-      myHeaders.append('Authorization', 'Client-ID 8adc96648c0a8f2');
+      myHeaders.append('Authorization', `Client-ID ${REACT_APP_IMGUR_CLIENT_ID}`);
 
       const uploadImagesToServer = await Promise.all(state.images.map(async image => {
         try {
