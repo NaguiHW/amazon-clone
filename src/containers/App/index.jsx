@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../../components/Header';
 import { auth } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
+import AddProduct from '../AddProduct';
 import Cart from '../Cart';
 import Home from '../Home';
 import Login from '../Login';
@@ -36,6 +37,10 @@ const App = () => {
     <Router>
       <div className="app">
         <Switch>
+          <Route path="/add-product">
+            <Header />
+            <AddProduct />
+          </Route>
           <Route path="/orders">
             <Header />
             <Orders />

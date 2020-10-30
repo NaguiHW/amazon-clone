@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
-import CartItems from '../../components/CartItems';
 import Item from '../../components/Item';
 import { db } from '../../firebase';
 import { getCartTotal } from '../../reducer';
@@ -41,14 +40,13 @@ const Payment = () => {
     getClientSecret();
   }, [cart]);
 
-  console.log(state.clientSecret);
-
   const handleSubmit = async e => {
     e.preventDefault();
     setState({
       ...state,
       processing: true,
     });
+
     const payload = await stripe.confirmCardPayment(state.clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),

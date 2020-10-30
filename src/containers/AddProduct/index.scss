@@ -1,0 +1,119 @@
+.your-products {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 25px;
+
+  > h2 {
+    margin: 10px;
+    text-align: center;
+  }
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: 0 auto;
+
+    .uploaded-images {
+      display: flex;
+      margin-top: 15px;
+
+      .image-container {
+        display: flex;
+        width: 100px;
+        height: 100px;
+        margin: 5px 5px 5px 0;
+
+        .image {
+          width: 100%;
+          object-fit: cover;
+          border-radius: 5px;
+        }
+      }
+
+      .icon-container {
+        background-color: red;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-top: -5px;
+        margin-left: -20px;
+        cursor: pointer;
+        border: none;
+        align-self: flex-start;
+        color: white;
+        font-weight: bold;
+
+        &:hover {
+          background-color: rgb(196, 0, 0);
+        }
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin: 5px 0;
+
+      span {
+        margin-bottom: 3px;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    }
+
+    #price {
+      width: 100px;
+      text-align: right;
+    }
+
+    button {
+      background-color: #f0c14b;
+      border: 1px solid;
+      margin: 10px 0;
+      border-color: #a88734 #9c7e31 #846a29;
+      color: #111;
+      width: 250px;
+      height: 24px;
+      align-self: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #cfa53b;
+      }
+      &:disabled {
+        background-color: gray;
+        cursor: default;
+      }
+    }
+  }
+
+  > button {
+    background-color: red;
+    border: 1px solid;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #fff;
+    width: 250px;
+    height: 24px;
+    align-self: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(206, 4, 4);
+    }
+  }
+}
