@@ -54,10 +54,10 @@ const Header = () => {
             <span className="header-nav-option-line-two">& Orders</span>
           </div>
         </Link>
-        <Link to="/your-products">
+        <Link to="/add-product">
           <div className="header-nav-option">
-            <span className="header-nav-option-line-one">Your</span>
-            <span className="header-nav-option-line-two">Products</span>
+            <span className="header-nav-option-line-one">Add</span>
+            <span className="header-nav-option-line-two">Product</span>
           </div>
         </Link>
         <Link to="/cart">

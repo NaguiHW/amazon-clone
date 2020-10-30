@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../../components/Header';
 import { auth } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
+import AddProduct from '../AddProduct';
 import Cart from '../Cart';
 import Home from '../Home';
 import Login from '../Login';
 import Orders from '../Orders';
 import Payment from '../Payment';
-import YourProducts from '../YourProducts';
 
 const promise = loadStripe('pk_test_51HfZ99JtSn1vJ3Q4V2IGlKEEtrjdBlB7QwxjkgX3ahJkiI06QHHlCgzlv9MWlJ7ogz8Izy88ccjDwHdAzy6yLFbx00qDOaIAy9');
 
@@ -37,9 +37,9 @@ const App = () => {
     <Router>
       <div className="app">
         <Switch>
-          <Route path="/your-products">
+          <Route path="/add-product">
             <Header />
-            <YourProducts />
+            <AddProduct />
           </Route>
           <Route path="/orders">
             <Header />
