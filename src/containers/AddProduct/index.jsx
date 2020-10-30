@@ -92,7 +92,6 @@ const AddProduct = () => {
 
           const response = await fetch('https://api.imgur.com/3/image', requestOptions);
           const result = await response.json();
-          console.log(result.data.link);
 
           imagesRoutes.push({
             link: result.data.link,

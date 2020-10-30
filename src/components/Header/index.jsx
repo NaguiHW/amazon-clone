@@ -48,18 +48,22 @@ const Header = () => {
             }
           </div>
         </Link>
-        <Link to="/orders">
-          <div className="header-nav-option">
-            <span className="header-nav-option-line-one">Returns</span>
-            <span className="header-nav-option-line-two">& Orders</span>
-          </div>
-        </Link>
-        <Link to="/add-product">
-          <div className="header-nav-option">
-            <span className="header-nav-option-line-one">Add</span>
-            <span className="header-nav-option-line-two">Product</span>
-          </div>
-        </Link>
+        {user && (
+          <>
+            <Link to="/orders">
+              <div className="header-nav-option">
+                <span className="header-nav-option-line-one">Returns</span>
+                <span className="header-nav-option-line-two">& Orders</span>
+              </div>
+            </Link>
+            <Link to="/add-product">
+              <div className="header-nav-option">
+                <span className="header-nav-option-line-one">Add</span>
+                <span className="header-nav-option-line-two">Product</span>
+              </div>
+            </Link>
+          </>
+        )}
         <Link to="/cart">
           <div className="header-nav-option-cart">
             <ShoppingCartIcon className="header-nav-option-cart-icon" />
