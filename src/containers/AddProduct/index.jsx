@@ -15,8 +15,9 @@ const AddProduct = () => {
     description: '',
     price: '',
     images: [],
-    imagesRoutes: [],
   });
+
+  const imagesRoutes = [];
 
   const handleChange = e => {
     setState({
@@ -74,24 +75,48 @@ const AddProduct = () => {
   const submitForm = async e => {
     e.preventDefault();
 
-    const dateNow = firebase.firestore.FieldValue.serverTimestamp();
-
     try {
+      const dateNow = firebase.firestore.FieldValue.serverTimestamp();
+
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Client-ID 8adc96648c0a8f2');
+
+      const uploadImagesToServer = await Promise.all(state.images.map(async image => {
+        try {
+          const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: image.formdata,
+          };
+
+          const response = await fetch('https://api.imgur.com/3/image', requestOptions);
+          const result = await response.json();
+          console.log(result.data.link);
+
+          imagesRoutes.push({
+            link: result.data.link,
+            deletehash: result.data.deletehash,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }));
+
       const product = await db
         .collection('products')
         .add({
           name: state.name,
           description: state.description,
           price: state.price,
-          imagesRoutes: state.imagesRoutes,
+          imagesRoutes,
           productOwner: user.uid,
           createdAt: dateNow,
         });
+
+      history.replace('/');
     } catch (err) {
       console.error(err);
     }
-
-    history.replace('/');
   };
 
   return (
