@@ -1,4 +1,7 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
+import EditProduct from '../../components/EditProduct';
+import MyProduct from '../../components/MyProduct';
 import { db } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
 import './index.scss';
@@ -22,6 +25,7 @@ const MyProducts = () => {
               description: doc.data().description,
               price: doc.data().price,
               imagesRoutes: doc.data().imagesRoutes,
+              edit: false,
             })),
           })
         ));
@@ -33,29 +37,39 @@ const MyProducts = () => {
     }
   }, [user]);
 
+  const changeEditStatus = index => e => {
+    e.preventDefault();
+
+    const newProducts = [...state.myProducts];
+    newProducts[index].edit = true;
+    setState({
+      ...state,
+      myProducts: newProducts,
+    });
+  };
+
   return (
     <div className="my-products">
       <h2>My Products</h2>
       {
         state.myProducts?.map((product, i) => (
-          <div className="product-container" key={i}>
-            <div className="images-container">
-              {
-                product.imagesRoutes.map((image, j) => (
-                  <img src={image.link} alt={image.link} key={j} />
-                ))
-              }
-            </div>
-            <div className="product-info">
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <h5>{product.price}</h5>
-            </div>
-            <div className="product-options">
-              <button type="button">Edit</button>
-              <button type="button">Delete</button>
-            </div>
-          </div>
+          product.edit ? (
+            <EditProduct
+              images={product.imagesRoutes}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+            />
+          ) : (
+            <MyProduct
+              images={product.imagesRoutes}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              editButton={changeEditStatus(i)}
+              key={i}
+            />
+          )
         ))
       }
     </div>

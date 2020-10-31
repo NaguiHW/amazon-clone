@@ -7,47 +7,4 @@
     margin: 5px 0 0 15px;
     font-size: 36px;
   }
-
-  .product-container {
-    margin: 10px 0;
-    display: flex;
-
-    .images-container {
-      margin: 5px;
-      flex: 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      img {
-        width: 97px;
-        height: 97px;
-        margin: 2px;
-        object-fit: cover;
-        border-radius: 3px;
-      }
-    }
-
-    .product-info {
-      margin: 5px;
-      flex: 7;
-
-      > h3,
-      > p {
-        margin-bottom: 10px;
-      }
-    }
-
-    .product-options {
-      margin: 5px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      button {
-        margin: 10px 0;
-        width: 90%;
-      }
-    }
-  }
 }
