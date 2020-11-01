@@ -4,20 +4,23 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 const EditProduct = ({
-  images, name, description, price, saveButton, cancelButton, deleteImage
+  images, name, description, price, saveButton, cancelButton, deleteImage,
 }) => (
   <div className="edit-product">
-    <div className="images-container">
-      {
-        images.map((image, i) => (
-          <>
-            <div className="image-container">
-              <img src={image.link} alt={image.link} key={i} className="image" />
-              <button type="button" className="icon-container" onClick={deleteImage} value={image.deletehash}>X</button>
-            </div>
-          </>
-        ))
-      }
+    <div className="images-area">
+      <div className="images-container">
+        {
+          images.map((image, i) => (
+            <>
+              <div className="image-container">
+                <img src={image.link} alt={image.link} key={i} className="image" />
+                <button type="button" className="icon-container" onClick={deleteImage} value={image.deletehash}>X</button>
+              </div>
+            </>
+          ))
+        }
+      </div>
+      <input type="file" id="image" name="image" disabled={images.length === 5 && true} />
     </div>
     <div className="product-info">
       <input type="text" className="title" value={name} />

@@ -4,58 +4,63 @@
   border-bottom: 1px solid lightgray;
   padding-bottom: 10px;
 
-  .images-container {
+  .images-area {
+    width: 210px;
     margin: 5px;
-    flex: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
 
-    // img {
-    //   width: 97px;
-    //   height: 97px;
-    //   margin: 2px;
-    //   object-fit: cover;
-    //   border-radius: 3px;
-    // }
-
-    .image-container {
+    .images-container {
       display: flex;
-      width: 100px;
-      height: 100px;
-      margin: 5px 5px 5px 0;
+      flex-wrap: wrap;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
 
-      .image {
-        width: 100%;
-        object-fit: cover;
-        border-radius: 5px;
+      // img {
+      //   width: 97px;
+      //   height: 97px;
+      //   margin: 2px;
+      //   object-fit: cover;
+      //   border-radius: 3px;
+      // }
+
+      .image-container {
+        display: flex;
+        width: 100px;
+        height: 100px;
+        margin: 5px 5px 5px 0;
+
+        .image {
+          width: 100%;
+          object-fit: cover;
+          border-radius: 5px;
+        }
       }
-    }
 
-    .icon-container {
-      background-color: red;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      margin-top: -5px;
-      margin-left: -20px;
-      cursor: pointer;
-      border: none;
-      align-self: flex-start;
-      color: white;
-      font-weight: bold;
+      .icon-container {
+        background-color: red;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-top: -5px;
+        margin-left: -20px;
+        cursor: pointer;
+        border: none;
+        align-self: flex-start;
+        color: white;
+        font-weight: bold;
 
-      &:hover {
-        background-color: rgb(196, 0, 0);
+        &:hover {
+          background-color: rgb(196, 0, 0);
+        }
       }
     }
   }
 
   .product-info {
     margin: 5px;
-    flex: 7;
+    width: 690px;
     display: flex;
     flex-direction: column;
 
@@ -63,6 +68,7 @@
       margin-top: 10px;
       min-height: 150px;
       height: 250px;
+      resize: none;
     }
 
     input::-webkit-outer-spin-button,
@@ -84,7 +90,7 @@
 
   .product-options {
     margin: 5px;
-    flex: 1;
+    width: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
