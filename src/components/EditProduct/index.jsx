@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 const EditProduct = ({
-  images, name, description, price, saveButton, cancelButton, deleteImage,
+  images, name, description, price, saveButton, cancelButton, deleteImage, changeHandler,
 }) => (
   <div className="edit-product">
     <div className="images-area">
@@ -23,9 +23,9 @@ const EditProduct = ({
       <input type="file" id="image" name="image" disabled={images.length === 5 && true} />
     </div>
     <div className="product-info">
-      <input type="text" className="title" value={name} />
-      <textarea value={description} className="description" />
-      <input type="number" className="price" value={price} min="0" step="0.01" required autoComplete="off" />
+      <input type="text" className="title" value={name} name="name" onChange={changeHandler} />
+      <textarea value={description} className="description" name="description" onChange={changeHandler} />
+      <input type="number" className="price" value={price} min="0" step="0.01" required autoComplete="off" name="price" onChange={changeHandler} />
     </div>
     <div className="product-options">
       <button type="button" className="edit" onClick={saveButton}>Save</button>
@@ -42,6 +42,7 @@ EditProduct.propTypes = {
   saveButton: PropTypes.func.isRequired,
   cancelButton: PropTypes.func.isRequired,
   deleteImage: PropTypes.func.isRequired,
+  changeHandler: PropTypes.func.isRequired,
 };
 
 export default EditProduct;

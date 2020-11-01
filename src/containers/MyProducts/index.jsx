@@ -10,6 +10,7 @@ const MyProducts = () => {
   const [{ user }] = useStateValue();
   const [state, setState] = useState({
     myProducts: [],
+    editedProducts: [],
   });
 
   useEffect(() => {
@@ -27,6 +28,13 @@ const MyProducts = () => {
               imagesRoutes: doc.data().imagesRoutes,
               edit: false,
             })),
+            editedProducts: snapshot.docs.map(doc => ({
+              name: doc.data().name,
+              description: doc.data().description,
+              price: doc.data().price,
+              imagesRoutes: doc.data().imagesRoutes,
+              id: doc.id,
+            })),
           })
         ));
     } else {
@@ -41,10 +49,20 @@ const MyProducts = () => {
     e.preventDefault();
 
     const newProducts = [...state.myProducts];
-    newProducts[index].edit = true;
+    newProducts[index].edit = !newProducts[index].edit;
     setState({
       ...state,
       myProducts: newProducts,
+    });
+  };
+
+  const updateEditedProductsState = index => e => {
+    const newEditedProducts = [...state.editedProducts];
+    newEditedProducts[index][e.target.name] = e.target.value;
+
+    setState({
+      ...state,
+      editedProducts: newEditedProducts,
     });
   };
 
@@ -55,10 +73,12 @@ const MyProducts = () => {
         state.myProducts?.map((product, i) => (
           product.edit ? (
             <EditProduct
-              images={product.imagesRoutes}
-              name={product.name}
-              description={product.description}
-              price={product.price}
+              images={state.editedProducts[i].imagesRoutes}
+              name={state.editedProducts[i].name}
+              description={state.editedProducts[i].description}
+              price={state.editedProducts[i].price}
+              cancelButton={changeEditStatus(i)}
+              changeHandler={updateEditedProductsState(i)}
             />
           ) : (
             <MyProduct

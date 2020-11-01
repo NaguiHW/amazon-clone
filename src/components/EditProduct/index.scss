@@ -11,16 +11,6 @@
     .images-container {
       display: flex;
       flex-wrap: wrap;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-
-      // img {
-      //   width: 97px;
-      //   height: 97px;
-      //   margin: 2px;
-      //   object-fit: cover;
-      //   border-radius: 3px;
-      // }
 
       .image-container {
         display: flex;
