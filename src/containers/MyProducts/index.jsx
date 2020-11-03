@@ -11,6 +11,9 @@ const MyProducts = () => {
   const [state, setState] = useState({
     myProducts: [],
     editedProducts: [],
+    imagesInEdit: [],
+    newImages: [],
+    deleteImages: [],
   });
 
   useEffect(() => {
@@ -32,8 +35,10 @@ const MyProducts = () => {
               name: doc.data().name,
               description: doc.data().description,
               price: doc.data().price,
-              imagesRoutes: doc.data().imagesRoutes,
               id: doc.id,
+            })),
+            imagesInEdit: snapshot.docs.map(doc => ({
+              imagesRoutes: doc.data().imagesRoutes,
             })),
           })
         ));
@@ -50,9 +55,19 @@ const MyProducts = () => {
 
     const newProducts = [...state.myProducts];
     newProducts[index].edit = !newProducts[index].edit;
+
+    const newEditedProducts = [...state.editedProducts];
+    newEditedProducts[index].name = newProducts[index].name;
+    newEditedProducts[index].description = newProducts[index].description;
+    newEditedProducts[index].price = newProducts[index].price;
+    const newImagesInEdit = [...state.imagesInEdit];
+    newImagesInEdit[index].imagesRoutes = newProducts[index].imagesRoutes;
+
     setState({
       ...state,
       myProducts: newProducts,
+      editedProducts: newEditedProducts,
+      imagesInEdit: newImagesInEdit,
     });
   };
 
@@ -66,6 +81,16 @@ const MyProducts = () => {
     });
   };
 
+  const deleteImageFunction = (productIndex, imageIndex) => {
+    setState({
+      ...state,
+      deleteImages: [...state.deleteImages,
+        state.imagesInEdit[productIndex].imagesRoutes[imageIndex].link],
+    });
+    console.log(state.deleteImages);
+    console.log(state.imagesInEdit[productIndex].imagesRoutes);
+  };
+
   return (
     <div className="my-products">
       <h2>My Products</h2>
@@ -73,12 +98,14 @@ const MyProducts = () => {
         state.myProducts?.map((product, i) => (
           product.edit ? (
             <EditProduct
-              images={state.editedProducts[i].imagesRoutes}
+              images={state.imagesInEdit[i].imagesRoutes}
               name={state.editedProducts[i].name}
               description={state.editedProducts[i].description}
               price={state.editedProducts[i].price}
               cancelButton={changeEditStatus(i)}
               changeHandler={updateEditedProductsState(i)}
+              deleteImageFunction={deleteImageFunction}
+              productIndex={i}
             />
           ) : (
             <MyProduct
