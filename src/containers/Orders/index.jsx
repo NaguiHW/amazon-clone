@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Order from '../../components/Order';
 import { db } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
@@ -34,7 +35,7 @@ const Orders = () => {
     }
   }, [user]);
 
-  return (
+  return user ? (
     <div className="orders">
       <h1>Your Orders</h1>
       <div className="orders-order">
@@ -45,6 +46,8 @@ const Orders = () => {
         }
       </div>
     </div>
+  ) : (
+    <Redirect to="/login" />
   );
 };
 

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
+import { Redirect } from 'react-router-dom';
 import EditProduct from '../../components/EditProduct';
 import MyProduct from '../../components/MyProduct';
 import { db } from '../../firebase';
@@ -110,7 +111,7 @@ const MyProducts = () => {
       });
   };
 
-  return (
+  return user ? (
     <div className="my-products">
       <h2>My Products</h2>
       {
@@ -136,6 +137,8 @@ const MyProducts = () => {
         ))
       }
     </div>
+  ) : (
+    <Redirect to="/login" />
   );
 };
 

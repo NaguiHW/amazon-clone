@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import { db } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
@@ -132,7 +132,7 @@ const AddProduct = () => {
     }
   };
 
-  return (
+  return user ? (
     <div className="your-products">
       <h2>Add a new product</h2>
       <form onSubmit={submitForm}>
@@ -170,6 +170,8 @@ const AddProduct = () => {
       <button type="button">Cancel</button>
       <div className="all-products" />
     </div>
+  ) : (
+    <Redirect to="/login" />
   );
 };
 
