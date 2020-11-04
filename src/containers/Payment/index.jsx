@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import Item from '../../components/Item';
 import { db } from '../../firebase';
@@ -86,7 +86,7 @@ const Payment = () => {
     });
   };
 
-  return (
+  return user ? (
     <div className="payment">
       <h1>
         Checkout
@@ -162,6 +162,8 @@ const Payment = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Redirect to="/login" />
   );
 };
 

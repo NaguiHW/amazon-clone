@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
+import { useStateValue } from '../../StateProvider';
 import './index.scss';
 
 const Login = () => {
+  const [{ user }] = useStateValue();
   const history = useHistory();
 
   const [state, setState] = useState({
@@ -42,7 +44,7 @@ const Login = () => {
       .catch(error => alert(error.message));
   };
 
-  return (
+  return !user ? (
     <div className="login">
       <Link to="/">
         <img src="http://ipiccy.com/blog/wp-content/uploads/2016/10/Amazon_logo_plain.svg_.png" alt="Amazon" className="login-logo" />
@@ -64,6 +66,8 @@ const Login = () => {
         <button type="button" className="register-button" onClick={register}>Create your Amazon Account</button>
       </div>
     </div>
+  ) : (
+    <Redirect to="/" />
   );
 };
 

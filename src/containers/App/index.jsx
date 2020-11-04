@@ -9,6 +9,7 @@ import AddProduct from '../AddProduct';
 import Cart from '../Cart';
 import Home from '../Home';
 import Login from '../Login';
+import MyProducts from '../MyProducts';
 import Orders from '../Orders';
 import Payment from '../Payment';
 
@@ -37,6 +38,10 @@ const App = () => {
     <Router>
       <div className="app">
         <Switch>
+          <Route path="/my-products">
+            <Header />
+            <MyProducts />
+          </Route>
           <Route path="/add-product">
             <Header />
             <AddProduct />
