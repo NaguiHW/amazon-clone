@@ -15,9 +15,9 @@ const AddProduct = () => {
     description: '',
     price: '',
     images: [],
+    addButtonStatus: false,
   });
 
-  const imagesRoutes = [];
   const { REACT_APP_IMGUR_CLIENT_ID } = process.env;
 
   const handleChange = e => {
@@ -75,47 +75,60 @@ const AddProduct = () => {
 
   const submitForm = async e => {
     e.preventDefault();
-
-    try {
-      const dateNow = firebase.firestore.FieldValue.serverTimestamp();
-
-      const myHeaders = new Headers();
-      myHeaders.append('Authorization', `Client-ID ${REACT_APP_IMGUR_CLIENT_ID}`);
-
-      const uploadImagesToServer = await Promise.all(state.images.map(async image => {
-        try {
-          const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: image.formdata,
-          };
-
-          const response = await fetch('https://api.imgur.com/3/image', requestOptions);
-          const result = await response.json();
-
-          imagesRoutes.push({
-            link: result.data.link,
-            deletehash: result.data.deletehash,
-          });
-        } catch (err) {
-          console.error(err);
-        }
-      }));
-
-      const product = await db
-        .collection('products')
-        .add({
-          name: state.name,
-          description: state.description,
-          price: state.price,
-          imagesRoutes,
-          productOwner: user.uid,
-          createdAt: dateNow,
+    if (state.images.length > 0) {
+      try {
+        setState({
+          ...state,
+          addButtonStatus: true,
         });
-
-      history.replace('/');
-    } catch (err) {
-      console.error(err);
+  
+        const dateNow = firebase.firestore.FieldValue.serverTimestamp();
+        const imagesRoutes = [];
+  
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', `Client-ID ${REACT_APP_IMGUR_CLIENT_ID}`);
+  
+        const uploadImagesToServer = await Promise.all(state.images.map(async image => {
+          try {
+            const requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: image.formdata,
+            };
+  
+            const response = await fetch('https://api.imgur.com/3/image', requestOptions);
+            const result = await response.json();
+  
+            imagesRoutes.push({
+              link: result.data.link,
+              deletehash: result.data.deletehash,
+            });
+          } catch (err) {
+            console.error('Imgur Error', err);
+          }
+        }));
+  
+        const product = await db
+          .collection('products')
+          .add({
+            name: state.name,
+            description: state.description,
+            price: state.price,
+            imagesRoutes,
+            productOwner: user.uid,
+            createdAt: dateNow,
+          });
+  
+        history.replace('/my-products');
+      } catch (err) {
+        setState({
+          ...state,
+          addButtonStatus: false,
+        });
+        console.error('FirebaseError', err);
+      }
+    } else {
+      alert('You need to have at least 1 image');
     }
   };
 
@@ -146,13 +159,13 @@ const AddProduct = () => {
         </div>
         <label htmlFor="image">
           <span>Upload Images: </span>
-          <input type="file" id="image" name="image" onChange={addImageToState} disabled={state.images.length === 5 && true} />
+          <input type="file" id="image" name="image" onChange={addImageToState} disabled={state.images.length === 5 && true} accept=".jpg, .jpeg, .png" />
         </label>
         <label htmlFor="price">
           <span>Item price: </span>
           <input type="number" name="price" id="price" placeholder="9.99" onChange={handleChange} min="0" step="0.01" required autoComplete="off" />
         </label>
-        <button type="submit" disabled={state.images.length < 1 && true}>Add</button>
+        <button type="submit" disabled={state.addButtonStatus && true}>Add</button>
       </form>
       <button type="button">Cancel</button>
       <div className="all-products" />
