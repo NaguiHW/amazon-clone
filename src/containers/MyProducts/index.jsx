@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
+import firebase from 'firebase';
 import EditProduct from '../../components/EditProduct';
 import MyProduct from '../../components/MyProduct';
 import { db } from '../../firebase';
@@ -10,11 +11,9 @@ const MyProducts = () => {
   const [{ user }] = useStateValue();
   const [state, setState] = useState({
     myProducts: [],
-    editedProducts: [],
-    imagesInEdit: [],
-    newImages: [],
-    deleteImages: [],
   });
+
+  const { REACT_APP_IMGUR_CLIENT_ID } = process.env;
 
   useEffect(() => {
     if (user) {
@@ -30,15 +29,7 @@ const MyProducts = () => {
               price: doc.data().price,
               imagesRoutes: doc.data().imagesRoutes,
               edit: false,
-            })),
-            editedProducts: snapshot.docs.map(doc => ({
-              name: doc.data().name,
-              description: doc.data().description,
-              price: doc.data().price,
               id: doc.id,
-            })),
-            imagesInEdit: snapshot.docs.map(doc => ({
-              imagesRoutes: doc.data().imagesRoutes,
             })),
           })
         ));
@@ -56,39 +47,67 @@ const MyProducts = () => {
     const newProducts = [...state.myProducts];
     newProducts[index].edit = !newProducts[index].edit;
 
-    const newEditedProducts = [...state.editedProducts];
-    newEditedProducts[index].name = newProducts[index].name;
-    newEditedProducts[index].description = newProducts[index].description;
-    newEditedProducts[index].price = newProducts[index].price;
-    const newImagesInEdit = [...state.imagesInEdit];
-    newImagesInEdit[index].imagesRoutes = newProducts[index].imagesRoutes;
-
     setState({
       ...state,
       myProducts: newProducts,
-      editedProducts: newEditedProducts,
-      imagesInEdit: newImagesInEdit,
     });
   };
 
-  const updateEditedProductsState = index => e => {
-    const newEditedProducts = [...state.editedProducts];
-    newEditedProducts[index][e.target.name] = e.target.value;
+  const updateData = async (id, name, description, price, newImages, oldImages, index) => {
+    try {
+      const imagesRoutes = oldImages;
+      const dateNow = firebase.firestore.FieldValue.serverTimestamp();
 
-    setState({
-      ...state,
-      editedProducts: newEditedProducts,
-    });
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Client-ID ${REACT_APP_IMGUR_CLIENT_ID}`);
+
+      const uploadImagesToServer = await Promise.all(newImages.map(async image => {
+        try {
+          const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: image.formdata,
+          };
+
+          const response = await fetch('https://api.imgur.com/3/image', requestOptions);
+          const result = await response.json();
+
+          imagesRoutes.push({
+            link: result.data.link,
+            deletehash: result.data.deletehash,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }));
+
+      const updateProduct = await db
+        .collection('products')
+        .doc(id)
+        .update({
+          name,
+          description,
+          price,
+          imagesRoutes,
+          updatedAt: dateNow,
+        });
+      changeEditStatus(index);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const deleteImageFunction = (productIndex, imageIndex) => {
-    setState({
-      ...state,
-      deleteImages: [...state.deleteImages,
-        state.imagesInEdit[productIndex].imagesRoutes[imageIndex].link],
-    });
-    console.log(state.deleteImages);
-    console.log(state.imagesInEdit[productIndex].imagesRoutes);
+  const deleteProduct = index => () => {
+    db
+      .collection('products')
+      .doc(state.myProducts[index].id)
+      .delete()
+      .then(() => {
+        console.log('Product deleted successfully');
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
@@ -98,14 +117,10 @@ const MyProducts = () => {
         state.myProducts?.map((product, i) => (
           product.edit ? (
             <EditProduct
-              images={state.imagesInEdit[i].imagesRoutes}
-              name={state.editedProducts[i].name}
-              description={state.editedProducts[i].description}
-              price={state.editedProducts[i].price}
+              imagesAndData={product}
               cancelButton={changeEditStatus(i)}
-              changeHandler={updateEditedProductsState(i)}
-              deleteImageFunction={deleteImageFunction}
-              productIndex={i}
+              updateData={updateData}
+              index={i}
             />
           ) : (
             <MyProduct
@@ -114,6 +129,7 @@ const MyProducts = () => {
               description={product.description}
               price={product.price}
               editButton={changeEditStatus(i)}
+              deleteButton={deleteProduct(i)}
               key={i}
             />
           )

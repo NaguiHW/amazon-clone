@@ -88,6 +88,28 @@
     button {
       margin: 10px 0;
       width: 90%;
+      cursor: pointer;
+      height: 24px;
+    }
+
+    .save {
+      background-color: lightgreen;
+      border: 1px solid green;
+
+      &:hover {
+        background-color: green;
+        color: white;
+      }
+    }
+
+    .cancel {
+      background-color: red;
+      border: 1px solid rgb(165, 0, 0);
+      color: white;
+
+      &:hover {
+        background-color: rgb(165, 0, 0);
+      }
     }
   }
 }
