@@ -62,6 +62,12 @@ const Header = () => {
                 <span className="header-nav-option-line-two">Product</span>
               </div>
             </Link>
+            <Link to="/my-products">
+              <div className="header-nav-option">
+                <span className="header-nav-option-line-one">My</span>
+                <span className="header-nav-option-line-two">Products</span>
+              </div>
+            </Link>
           </>
         )}
         <Link to="/cart">
