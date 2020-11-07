@@ -24,6 +24,8 @@ const Payment = () => {
     clientSecret: true,
   });
 
+  console.log(Number(getCartTotal(cart)) * 100);
+
   useEffect(() => {
     const getClientSecret = async () => {
       const response = await axios({
