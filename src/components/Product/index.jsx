@@ -31,17 +31,19 @@ const Product = ({
           ))}
         </div>
       </div>
-      <img src={image} alt="product" />
+      <div className="img-container">
+        <img src={image} alt="product" />
+      </div>
       <button type="button" onClick={addToCart}>Add to cart</button>
     </div>
   );
 };
 
 Product.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
 };
 
