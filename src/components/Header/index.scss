@@ -21,16 +21,24 @@
     border-radius: 24px;
 
     .header-search-input {
-      height: 12px;
+      height: 16px;
       padding: 10px;
       border: none;
       width: 100%;
+      border-radius: 5px 0 0 5px;
     }
 
     .header-search-icon {
       padding: 5px;
-      height: 22px;
-      background-color: #cd9042;
+      height: 26px;
+      width: 30px;
+      background-color: #febd69;
+      border-radius: 0 5px 5px 0;
+      margin-right: 10px;
+
+      &:hover {
+        background-color: #f3a847;
+      }
     }
   }
 
@@ -39,19 +47,29 @@
     justify-content: space-evenly;
     align-items: center;
 
+    a {
+      text-decoration: none;
+    }
+
     .header-nav-option {
       display: flex;
       flex-direction: column;
-      margin: 0 10px;
       color: white;
+      padding: 10px;
+      border: 1px solid #131921;
 
       .header-nav-option-line-one {
-        font-size: 10px;
+        font-size: 12px;
       }
 
       .header-nav-option-line-two {
-        font-size: 13px;
-        font-weight: 800;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      &:hover {
+        border: 1px solid white;
+        border-radius: 2px;
       }
     }
 
@@ -61,7 +79,7 @@
       color: white;
 
       .header-cart-count {
-        margin: 0%10px;
+        margin: 0 10px;
       }
     }
   }

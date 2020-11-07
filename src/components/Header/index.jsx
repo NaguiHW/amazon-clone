@@ -31,7 +31,11 @@ const Header = () => {
               user
                 ? (
                   <>
-                    <span className="header-nav-option-line-one">Hello</span>
+                    <span className="header-nav-option-line-one">
+                      Hello,
+                      {' '}
+                      {user?.email.split('@', 1)}
+                    </span>
                     <span className="header-nav-option-line-two" onClick={signOut}>Sign Out</span>
                   </>
                 )
@@ -44,14 +48,28 @@ const Header = () => {
             }
           </div>
         </Link>
-        <div className="header-nav-option">
-          <span className="header-nav-option-line-one">Returns</span>
-          <span className="header-nav-option-line-two">& Orders</span>
-        </div>
-        <div className="header-nav-option">
-          <span className="header-nav-option-line-one">Your</span>
-          <span className="header-nav-option-line-two">Prime</span>
-        </div>
+        {user && (
+          <>
+            <Link to="/orders">
+              <div className="header-nav-option">
+                <span className="header-nav-option-line-one">Returns</span>
+                <span className="header-nav-option-line-two">& Orders</span>
+              </div>
+            </Link>
+            <Link to="/add-product">
+              <div className="header-nav-option">
+                <span className="header-nav-option-line-one">Add</span>
+                <span className="header-nav-option-line-two">Product</span>
+              </div>
+            </Link>
+            <Link to="/my-products">
+              <div className="header-nav-option">
+                <span className="header-nav-option-line-one">My</span>
+                <span className="header-nav-option-line-two">Products</span>
+              </div>
+            </Link>
+          </>
+        )}
         <Link to="/cart">
           <div className="header-nav-option-cart">
             <ShoppingCartIcon className="header-nav-option-cart-icon" />

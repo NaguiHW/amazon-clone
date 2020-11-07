@@ -1,11 +1,19 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../../components/Header';
 import { auth } from '../../firebase';
 import { useStateValue } from '../../StateProvider';
+import AddProduct from '../AddProduct';
 import Cart from '../Cart';
 import Home from '../Home';
 import Login from '../Login';
+import MyProducts from '../MyProducts';
+import Orders from '../Orders';
+import Payment from '../Payment';
+
+const promise = loadStripe('pk_test_51HfZ99JtSn1vJ3Q4V2IGlKEEtrjdBlB7QwxjkgX3ahJkiI06QHHlCgzlv9MWlJ7ogz8Izy88ccjDwHdAzy6yLFbx00qDOaIAy9');
 
 const App = () => {
   const [{}, dispath] = useStateValue();
@@ -30,8 +38,26 @@ const App = () => {
     <Router>
       <div className="app">
         <Switch>
+          <Route path="/my-products">
+            <Header />
+            <MyProducts />
+          </Route>
+          <Route path="/add-product">
+            <Header />
+            <AddProduct />
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
+          </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/payment">
+            <Header />
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
           </Route>
           <Route path="/cart">
             <Header />
